@@ -13,10 +13,13 @@ def create_app():
     from app.routes.auth import auth_bp
     from app.routes.dashboard import dashboard_bp
     from app.routes.cv import cv_bp
+    from app.routes.main import main_bp
 
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(cv_bp, url_prefix="/cv")
+    app.register_blueprint(main_bp)
+
 
     # إنشاء الجداول
     with app.app_context():
