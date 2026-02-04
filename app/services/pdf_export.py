@@ -1,17 +1,16 @@
-from weasyprint import HTML
+import pdfkit
 from flask import render_template
-import tempfile
 import os
 
-def generate_pdf(template_name, data, lang):
-    html_content = render_template(
-        f"cv_templates/{template_name}.html",
-        data=data,
-        lang=lang
-    )
+def generate_pdf(template, form_data, language):
+    # render HTML من template
+    html = render_template(f"cv_templates/{template}.html", data=form_data, lang=language)
+    # اسم ملف مؤقت
+    slug = form_data.get("slug", "temp")
+    output_path = f"/tmp/cv_{slug}.pdf"
 
-    tmp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    # تحويل HTML إلى PDF
+    pdfkit.from_string(html, output_path)
 
-    HTML(string=html_content, base_url=os.getcwd()).write_pdf(tmp_pdf.name)
+    return output_path
 
-    return tmp_pdf.name
