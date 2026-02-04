@@ -1,0 +1,12 @@
+@page {
+    size: A4;
+    margin: 1.5cm;
+}
+
+body {
+    background: white;
+}
+
+.cv {
+    box-shadow: none !important;
+}

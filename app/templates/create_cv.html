@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container split">
+
+    <!-- FORM -->
+    <div class="form-side">
+        <h1>Create Your CV</h1>
+
+        <form id="cvForm">
+
+            <!-- اللغة -->
+            <label>Language</label>
+            <select name="language">
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="ar">العربية</option>
+            </select>
+
+            <!-- القالب -->
+            <label>Template</label>
+            <select name="template">
+                <option value="modern">Modern</option>
+                <option value="classic">Classic</option>
+                <option value="minimal">Minimal</option>
+            </select>
+
+            <hr>
+
+            <label>Full Name</label>
+            <input type="text" name="full_name">
+
+            <label>Job Title</label>
+            <input type="text" name="job_title">
+
+            <label>Profile</label>
+            <textarea name="profile"></textarea>
+
+            <label>Skills</label>
+            <input type="text" name="skills">
+
+            <label>Experience</label>
+            <textarea name="experience"></textarea>
+
+        </form>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="preview-side">
+        <iframe id="previewFrame"></iframe>
+    </div>
+<h2>Experience</h2>
+
+<div id="experienceList"></div>
+
+<button type="button" onclick="addExperience()">+ Add Experience</button>
+
+</div>
+<h2>Education</h2>
+
+<div id="educationList"></div>
+
+<button type="button" onclick="addEducation()">+ Add Education</button>
+
+<h2>Projects</h2>
+
+<div id="projectList"></div>
+
+<button type="button" onclick="addProject()">+ Add Project</button>
+<form method="POST" action="{{ url_for('cv.export_pdf') }}">
+    <!-- نفس الحقول -->
+    <button type="submit" class="btn pdf">
+        Export PDF
+    </button>
+</form>
+<button type="button" onclick="exportPDF()">
+    Export PDF
+</button>
+<button type="button" onclick="saveCV()">
+    Save & Get Link
+</button>
+<label>
+    <input type="checkbox" name="is_public" checked>
+    Public CV (shareable link)
+</label>
+{% if editing %}
+    <h1>Edit CV</h1>
+{% else %}
+    <h1>Create Your CV</h1>
+{% endif %}
+
+<form id="cvForm" method="POST" action="{% if editing %}/cv/edit/{{ cv_id }}{% else %}/cv/save{% endif %}">
+
+
+<script src="{{ url_for('static', filename='js/preview.js') }}"></script>
+
+{% endblock %}

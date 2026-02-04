@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/classic.css') }}">
+{% endblock %}
+
+{% block content %}
+<table class="cv classic">
+    <tr>
+        <td colspan="2" class="name">
+            <h1>{{ data.full_name }}</h1>
+            <p>{{ data.job_title }}</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="label">Profile</td>
+        <td>{{ data.profile }}</td>
+    </tr>
+
+    <tr>
+        <td class="label">Skills</td>
+        <td>{{ data.skills }}</td>
+    </tr>
+
+    <tr>
+        <td class="label">Experience</td>
+        <td>{{ data.experience }}</td>
+    </tr>
+</table>
+{% endblock %}

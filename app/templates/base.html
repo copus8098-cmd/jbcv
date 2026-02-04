@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}"
+      dir="{% if lang == 'ar' %}rtl{% else %}ltr{% endif %}">
+      <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/print.css') }}"
+      media="print">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.full_name if data else 'CV Builder' }}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    {% if lang == 'ar' %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/rtl.css') }}">
+    {% endif %}
+
+    {% block css %}{% endblock %}
+</head>
+<body class="{% if lang == 'ar' %}rtl{% endif %}">
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+cv_builder/
+│
+├── app.py
+├── config.py
+├── requirements.txt
+│
+├── /app
+│   ├── __init__.py
+│   │
+│   ├── /routes
+│   │   ├── __init__.py
+│   │   ├── main.py          # الصفحة الرئيسية
+│   │   ├── cv.py            # إنشاء وتحرير السيفي
+│   │   ├── auth.py          # تسجيل / دخول (اختياري)
+│   │   └── api.py           # API (إن احتجت)
+│   │
+│   ├── /models
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   └── cv.py
+│   │
+│   ├── /services
+│   │   ├── __init__.py
+│   │   ├── cv_generator.py  # توليد CV
+│   │   ├── pdf_export.py    # تحويل PDF
+│   │   └── translate.py     # تعدد اللغات
+│   │
+│   ├── /templates
+│   │   ├── base.html
+│   │   │
+│   │   ├── /cv_templates
+│   │   │   ├── modern.html
+│   │   │   ├── classic.html
+│   │   │   └── minimal.html
+│   │   │
+│   │   ├── home.html
+│   │   ├── create_cv.html
+│   │   └── preview.html
+│   │
+│   ├── /static
+│   │   ├── /css
+│   │   │   ├── main.css
+│   │   │   ├── modern.css
+│   │   │   └── classic.css
+│   │   │
+│   │   ├── /js
+│   │   │   ├── cv_form.js
+│   │   │   └── preview.js
+│   │   │
+│   │   └── /images
+│   │
+│   ├── /translations
+│   │   ├── ar.json
+│   │   ├── fr.json
+│   │   └── en.json
+│   │
+│   └── /utils
+│       ├── __init__.py
+│       └── helpers.py
+│
+└── /instance
+    └── database.db

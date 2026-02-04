@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>My CVs</h1>
+
+<a href="/cv/create">+ Create New CV</a>
+
+<ul>
+{% for cv in cvs %}
+    <li>
+        <a href="/cv/view/{{ cv.slug }}">View</a> |
+        <a href="/cv/export-pdf?slug={{ cv.slug }}">PDF</a>
+    </li>
+{% else %}
+    <p>No CVs yet.</p>
+{% endfor %}
+</ul>
+<ul>
+{% for cv in cvs %}
+    <li>
+        <strong>{{ cv.slug }}</strong>
+        {% if cv.is_public %}
+            🌍 Public
+        {% else %}
+            🔒 Private
+        {% endif %}
+
+        | <a href="/cv/view/{{ cv.slug }}">View</a>
+        | <a href="/cv/toggle/{{ cv.id }}">Toggle</a>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

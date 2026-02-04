@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="cv minimal">
+    <h1>{{ data.full_name }}</h1>
+    <small>{{ data.job_title }}</small>
+
+    <hr>
+
+    <p>{{ data.profile }}</p>
+    <p><strong>Skills:</strong> {{ data.skills }}</p>
+    <p><strong>Experience:</strong> {{ data.experience }}</p>
+</div>
+{% endblock %}

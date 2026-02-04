@@ -1,0 +1,16 @@
+.cv.modern {
+    width: 800px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+}
+
+section {
+    margin: 20px 0;
+}
+
