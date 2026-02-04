@@ -1,0 +1,6 @@
+{
+  "name": "cv_builder",
+  "language": "python@3.11",
+  "web": "gunicorn run:app",
+  "packages": ["python3", "pip"]
+}
