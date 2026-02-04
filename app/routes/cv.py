@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, send_file, redirect, url_for, session, abort
+from flask import Blueprint, render_template, render_template_string, request, send_file, redirect, url_for, session, abort
 from app.services.pdf_export import generate_pdf
 from app.models.cv import CV
 from app import db
@@ -119,3 +119,35 @@ def edit_cv(cv_id):
     # GET → عرض الفورم مع البيانات الحالية
     data = json.loads(cv.data)
     return render_template("create_cv.html", data=data, editing=True, cv_id=cv.id)
+
+# -----------------------
+# Test CV Page (Dummy Data)
+# -----------------------
+@cv_bp.route("/view/test")
+def view_test_cv():
+    data = {
+        "name": "Karim Salhif",
+        "title": "Fullstack Developer",
+        "education": [
+            {"degree": "BSc Computer Science", "year": "2026", "school": "University X"}
+        ],
+        "experience": [
+            {"company": "My Company", "role": "Developer", "year": "2025-2026"}
+        ],
+        "projects": [
+            {"title": "CV Builder", "description": "Flask Project Example"}
+        ]
+    }
+    return render_template("cv_templates/modern.html", data=data, lang="en")
+
+# -----------------------
+# Test Route Simple
+# -----------------------
+@cv_bp.route("/test")
+def test_cv_page():
+    return render_template_string("<h1>CV Test Page Works!</h1>")
+
+
+@cv_bp.route("/create", methods=["GET"])
+def create_cv():
+    return render_template("create_cv.html", data={}, editing=False)

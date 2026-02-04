@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from app.routes.main import main_bp
 
+# إنشاء DB
 db = SQLAlchemy()
 
 def create_app():
@@ -10,22 +10,16 @@ def create_app():
 
     db.init_app(app)
 
-    # تسجيل Blueprints
-    from app.routes.auth import auth_bp
-    from app.routes.dashboard import dashboard_bp
-    from app.routes.cv import cv_bp
     from app.routes.main import main_bp
+    from app.routes.cv import cv_bp
 
-    app.register_blueprint(auth_bp, url_prefix="/auth")
-    app.register_blueprint(dashboard_bp)
-    app.register_blueprint(cv_bp, url_prefix="/cv")
     app.register_blueprint(main_bp)
+    app.register_blueprint(cv_bp, url_prefix="/cv")
 
-
-    # إنشاء الجداول
     with app.app_context():
         db.create_all()
 
     return app
+
 
 

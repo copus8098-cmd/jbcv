@@ -5,43 +5,80 @@
 
     <!-- FORM -->
     <div class="form-side">
-        <h1>Create Your CV</h1>
+        {% if editing %}
+            <h1>Edit CV</h1>
+        {% else %}
+            <h1>Create Your CV</h1>
+        {% endif %}
 
-        <form id="cvForm">
-
+        <form id="cvForm" method="POST" action="{% if editing %}/cv/edit/{{ cv_id }}{% else %}/cv/save{% endif %}">
+            
             <!-- اللغة -->
             <label>Language</label>
             <select name="language">
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-                <option value="ar">العربية</option>
+                <option value="en" {% if data.language == 'en' %}selected{% endif %}>English</option>
+                <option value="fr" {% if data.language == 'fr' %}selected{% endif %}>Français</option>
+                <option value="ar" {% if data.language == 'ar' %}selected{% endif %}>العربية</option>
             </select>
 
             <!-- القالب -->
             <label>Template</label>
             <select name="template">
-                <option value="modern">Modern</option>
-                <option value="classic">Classic</option>
-                <option value="minimal">Minimal</option>
+                <option value="modern" {% if data.template == 'modern' %}selected{% endif %}>Modern</option>
+                <option value="classic" {% if data.template == 'classic' %}selected{% endif %}>Classic</option>
+                <option value="minimal" {% if data.template == 'minimal' %}selected{% endif %}>Minimal</option>
             </select>
 
             <hr>
 
             <label>Full Name</label>
-            <input type="text" name="full_name">
+            <input type="text" name="full_name" value="{{ data.full_name|default('') }}">
 
             <label>Job Title</label>
-            <input type="text" name="job_title">
+            <input type="text" name="job_title" value="{{ data.job_title|default('') }}">
 
             <label>Profile</label>
-            <textarea name="profile"></textarea>
+            <textarea name="profile">{{ data.profile|default('') }}</textarea>
 
             <label>Skills</label>
-            <input type="text" name="skills">
+            <input type="text" name="skills" value="{{ data.skills|default('') }}">
 
-            <label>Experience</label>
-            <textarea name="experience"></textarea>
+            <!-- Experience -->
+            <h2>Experience</h2>
+            <div id="experienceList">
+                {% for exp in data.experience %}
+                    <input type="text" name="experience" value="{{ exp }}">
+                {% endfor %}
+            </div>
+            <button type="button" onclick="addExperience()">+ Add Experience</button>
 
+            <!-- Education -->
+            <h2>Education</h2>
+            <div id="educationList">
+                {% for edu in data.education %}
+                    <input type="text" name="education" value="{{ edu }}">
+                {% endfor %}
+            </div>
+            <button type="button" onclick="addEducation()">+ Add Education</button>
+
+            <!-- Projects -->
+            <h2>Projects</h2>
+            <div id="projectList">
+                {% for proj in data.projects %}
+                    <input type="text" name="projects" value="{{ proj }}">
+                {% endfor %}
+            </div>
+            <button type="button" onclick="addProject()">+ Add Project</button>
+
+            <hr>
+
+            <label>
+                <input type="checkbox" name="is_public" {% if data.is_public %}checked{% endif %}>
+                Public CV (shareable link)
+            </label>
+
+            <button type="submit" class="btn save">Save & Get Link</button>
+            <button type="button" onclick="exportPDF()" class="btn pdf">Export PDF</button>
         </form>
     </div>
 
@@ -49,49 +86,8 @@
     <div class="preview-side">
         <iframe id="previewFrame"></iframe>
     </div>
-<h2>Experience</h2>
-
-<div id="experienceList"></div>
-
-<button type="button" onclick="addExperience()">+ Add Experience</button>
 
 </div>
-<h2>Education</h2>
-
-<div id="educationList"></div>
-
-<button type="button" onclick="addEducation()">+ Add Education</button>
-
-<h2>Projects</h2>
-
-<div id="projectList"></div>
-
-<button type="button" onclick="addProject()">+ Add Project</button>
-<form method="POST" action="{{ url_for('cv.export_pdf') }}">
-    <!-- نفس الحقول -->
-    <button type="submit" class="btn pdf">
-        Export PDF
-    </button>
-</form>
-<button type="button" onclick="exportPDF()">
-    Export PDF
-</button>
-<button type="button" onclick="saveCV()">
-    Save & Get Link
-</button>
-<label>
-    <input type="checkbox" name="is_public" checked>
-    Public CV (shareable link)
-</label>
-{% if editing %}
-    <h1>Edit CV</h1>
-{% else %}
-    <h1>Create Your CV</h1>
-{% endif %}
-
-<form id="cvForm" method="POST" action="{% if editing %}/cv/edit/{{ cv_id }}{% else %}/cv/save{% endif %}">
-
 
 <script src="{{ url_for('static', filename='js/preview.js') }}"></script>
-
 {% endblock %}
